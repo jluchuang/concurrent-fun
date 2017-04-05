@@ -1,6 +1,5 @@
 package book.artofjavaconcurrency.locks;
 
-import javafx.concurrent.Worker;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
