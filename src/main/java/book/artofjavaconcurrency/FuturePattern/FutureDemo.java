@@ -21,14 +21,13 @@ public class FutureDemo {
         }
     }
 
-
     public static void main(String args[]) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         List<Future<String>> list = new ArrayList<>();
         Callable<String> task = new DemoTask();
 
-        for (int i = 0; i < 100; i ++) {
+        for (int i = 0; i < 100; i++) {
             Future<String> future = executorService.submit(task);
 
             // Add Future to the list, we can get return value using future

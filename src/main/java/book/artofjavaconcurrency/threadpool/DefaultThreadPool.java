@@ -1,6 +1,5 @@
 package book.artofjavaconcurrency.threadpool;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +40,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
         workerNum = num > MAX_WORKER_NUMBERS ? MAX_WORKER_NUMBERS :
                 num < MIN_WORKER_NUMBERS ? MIN_WORKER_NUMBERS : num;
         initializeWorkers(workerNum);
-    };
+    }
 
     private void initializeWorkers(int num) {
         for (int i = 0; i < num; i++) {
@@ -52,10 +51,9 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
         }
     }
 
-
     @Override
     public void execute(Job job) {
-        if(job != null) {
+        if (job != null) {
             synchronized (jobs) {
                 jobs.add(job);
                 jobs.notify();
@@ -74,7 +72,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
     public void addWorkers(int num) {
         synchronized (jobs) {
             // 限制新增的Worker数量不超过最大值
-            if(num + this.workerNum > MIN_WORKER_NUMBERS) {
+            if (num + this.workerNum > MIN_WORKER_NUMBERS) {
                 num = MAX_WORKER_NUMBERS - this.workerNum;
             }
 
@@ -86,7 +84,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
     @Override
     public void removeWorker(int num) {
         synchronized (jobs) {
-            if(num >= this.workerNum) {
+            if (num >= this.workerNum) {
                 throw new IllegalArgumentException("beyond workNum");
             }
             // 按照给定的数量停止Worker
@@ -95,7 +93,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
                 Worker worker = workers.get(count);
                 if (workers.remove(worker)) {
                     worker.shutdown();
-                    count ++;
+                    count++;
                 }
             }
 
@@ -121,8 +119,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
                     while (jobs.isEmpty()) {
                         try {
                             jobs.wait();
-                        }
-                        catch (InterruptedException ex) {
+                        } catch (InterruptedException ex) {
                             // 感知到外部对WorkerThread的中断操作, 返回
                             Thread.currentThread().interrupt();
                             return;
@@ -134,8 +131,7 @@ public class DefaultThreadPool<Job extends Runnable> implements ThreadPool<Job> 
                 if (job != null) {
                     try {
                         job.run();
-                    }
-                    catch (Exception ex) {
+                    } catch (Exception ex) {
                         // 忽略Job执行中的Exception
                     }
                 }

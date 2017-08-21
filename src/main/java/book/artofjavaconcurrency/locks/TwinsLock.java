@@ -1,5 +1,7 @@
 package book.artofjavaconcurrency.locks;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
@@ -42,30 +44,31 @@ public class TwinsLock implements Lock {
     }
 
     private static final class Sync extends AbstractQueuedSynchronizer {
-        Sync (int count ) {
-            if(count <= 0) {
+        Sync(int count) {
+            if (count <= 0) {
                 throw new IllegalArgumentException("count must large then zero.");
             }
             setState(count);
         }
 
         public int tryAcquireShared(int reduceCount) {
-            for( ; ;) {
+            for (; ; ) {
                 int current = getState();
 
                 int newCount = current - reduceCount;
-                if(newCount < 0 || compareAndSetState(current, newCount)) {
+                if (newCount < 0 || compareAndSetState(current, newCount)) {
                     return newCount;
                 }
             }
+
         }
 
         public boolean tryReleaseShared(int returnCount) {
-            for( ; ;) {
+            for (; ; ) {
                 int current = getState();
 
                 int newCount = current + returnCount;
-                if(compareAndSetState(current, newCount)) {
+                if (compareAndSetState(current, newCount)) {
                     return true;
                 }
             }

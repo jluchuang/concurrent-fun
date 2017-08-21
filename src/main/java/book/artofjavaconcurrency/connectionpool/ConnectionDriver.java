@@ -24,7 +24,7 @@ public class ConnectionDriver {
 
     public static final Connection createConnection() {
         return (Connection) Proxy.newProxyInstance(ConnectionDriver.class.getClassLoader(),
-                new Class<?>[]{Connection.class}, new ConnectionHandler());
+                new Class<?>[] {Connection.class}, new ConnectionHandler());
     }
 
 }

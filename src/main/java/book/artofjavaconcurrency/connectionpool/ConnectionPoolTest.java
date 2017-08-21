@@ -25,7 +25,7 @@ public class ConnectionPoolTest {
         AtomicInteger got = new AtomicInteger();
         AtomicInteger notGot = new AtomicInteger();
 
-        for (int i = 0; i < threadCount; i ++) {
+        for (int i = 0; i < threadCount; i++) {
             Thread thread = new Thread(new ConnectionRunner(count, got, notGot), "ConnectionRunnerThread");
             thread.start();
         }
@@ -38,7 +38,7 @@ public class ConnectionPoolTest {
         System.out.println("Not got connection: " + notGot);
     }
 
-    static class ConnectionRunner implements Runnable{
+    static class ConnectionRunner implements Runnable {
 
         int count;
         AtomicInteger got;
@@ -54,29 +54,27 @@ public class ConnectionPoolTest {
         public void run() {
             try {
                 start.wait();
-            }catch (Exception ex) {
+            } catch (Exception ex) {
 
             }
 
-            while (count > 0 ) {
+            while (count > 0) {
                 try {
                     Connection connection = pool.fetchConnection(1000);
-                    if(connection != null) {
+                    if (connection != null) {
                         try {
                             connection.createStatement();
                             connection.commit();
-                        }
-                        finally {
+                        } finally {
                             pool.releaseConnection(connection);
                             got.incrementAndGet();
                         }
-                    }
-                    else {
+                    } else {
                         notGot.incrementAndGet();
                     }
                 } catch (Exception e) {
-                }finally {
-                    count --;
+                } finally {
+                    count--;
                 }
             }
             end.countDown();
