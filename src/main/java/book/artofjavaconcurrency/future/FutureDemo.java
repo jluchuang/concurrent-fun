@@ -1,4 +1,4 @@
-package book.artofjavaconcurrency.FuturePattern;
+package book.artofjavaconcurrency.future;
 
 import java.util.ArrayList;
 import java.util.Date;

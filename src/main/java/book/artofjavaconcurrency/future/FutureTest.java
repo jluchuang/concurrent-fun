@@ -1,4 +1,4 @@
-package future;
+package book.artofjavaconcurrency.future;
 
 import java.util.ArrayList;
 import java.util.List;
