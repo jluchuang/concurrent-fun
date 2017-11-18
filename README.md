@@ -1,4 +1,5 @@
 # concurrent-fun
-Just learn j.u.c
+Just to learn j.u.c
 
-Code in《java并发编程的艺术》
+Not Just code in《java并发编程的艺术》
+
