@@ -45,6 +45,7 @@ public class ExecutorCompletionServiceSample {
             String result = executorCompletionService.take().get();
             System.out.println(result);
         }
+        executorService.shutdown();
     }
 
     private static void firstResultDemo() {
@@ -76,6 +77,7 @@ public class ExecutorCompletionServiceSample {
         }
 
         System.out.println("First Result is :" + firstResultStr);
+        executorService.shutdown();
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
