@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by chuang on 17-9-27.
  */
 public class ThreadLocalExample {
+
     public static class ThreadLocalRunnable implements Runnable {
 
         @Override
